@@ -1,0 +1,22 @@
+        /*
+        InputStream is = new FileInputStream("D:\\IdeaProjects\\MyJava\\testdata\\readtest.txt");
+        //File file = new File("D:\\IdeaProjects\\MyJava\\testdata\\readtest.txt");
+        //InputStream in = new FileInputStream(file);
+        OutputStream os = new FileOutputStream("D:\\IdeaProjects\\MyJava\\testdata\\readtest.txt");
+        //File file = new File("D:\\IdeaProjects\\MyJava\\testdata\\readtest.txt");
+        //OutputStream out = new FileOutputStream(file);
+         */
+        byte bWrite[] = {11, 21, 3, 40, 5};
+        OutputStream os = new FileOutputStream("test.txt");
+        for (int x = 0; x < bWrite.length; x++) {
+            os.write(bWrite[x]); // writes the bytes
+        }
+        os.close();
+
+        InputStream is = new FileInputStream("D:\\IdeaProjects\\MyJava\\testdata\\readtest.txt");
+        int size = is.available();
+
+        for (int i = 0; i < size; i++) {
+            System.out.print((char) is.read());
+        }
+        is.close();
