@@ -1,11 +1,14 @@
 package com.maxwell.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sort {
     public static void main(String[] args) {
-        int[] a = {3, 11, 4, 1, 7, 4, 22, 6};
-        shellSort(a);
+        int[] a = {3, 11, 4, 3, 222, 12312, 2222, 6};
+        radixSort(a);
     }
 
     public static void bubbleSort(int[] array) {
@@ -87,4 +90,131 @@ public class Sort {
             gap /= 2;
         }
     }
+
+    public static void mergeSort(int[] array, int low, int high) {
+        if (low < high) {
+            int mid = (low + high) / 2;
+            mergeSort(array, low, mid);
+            mergeSort(array, mid + 1, high);
+            int[] temp = new int[high - low + 1];
+            for (int i = 0; i < temp.length; i++) {
+                temp[i] = array[i + low];
+            }
+            int i = low, j = mid + 1, k = low;
+            for (; i <= mid && j <= high; k++) {
+                if (temp[i - low] < temp[j - low]) {
+                    array[k] = temp[i++ - low];
+                } else {
+                    array[k] = temp[j++ - low];
+                }
+            }
+            while (i <= mid) {
+                array[k++] = temp[i++ - low];
+            }
+            while (j <= high) {
+                array[k++] = temp[j++ - low];
+            }
+            System.out.println(Arrays.toString(array));
+        }
+    }
+
+    public static void quickSort(int[] array, int start, int end) {
+        if (start > end) {
+            return;
+        }
+        int base = array[end];
+        int i = start, j = end;
+        while (i < j) {
+            while (i < j && array[i] <= base) {
+                i++;
+            }
+            if (i < j) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                j--;
+            }
+            while (i < j && array[j] >= base) {
+                j--;
+            }
+            if (i < j) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+            }
+
+        }
+        System.out.println(Arrays.toString(array));
+        quickSort(array, start, i - 1);
+        quickSort(array, i + 1, end);
+
+    }
+
+    public static void countingSort(int[] array) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+        int[] count = new int[max - min + 1];
+        for (int i = 0; i < array.length; i++) {
+            count[array[i] - min]++;
+        }
+        for (int i = 0, index = 0; i < count.length; i++) {
+            while (count[i] != 0) {
+                array[index] = i + min;
+                index++;
+                count[i]--;
+            }
+        }
+        System.out.println(Arrays.toString(array));
+    }
+
+    public static void radixSort(int[] array) {
+        int max = Integer.MIN_VALUE;
+        int divNumber;//用于基数分类0-9
+        int count = 0;//计算最大数的位数
+        Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+        for (int i = 0; i < array.length; i++) {
+            if (max < array[i]) {
+                max = array[i];
+            }
+        }
+        while (max > 0) {
+            max /= 10;
+            count++;
+        }
+        for (int radix = 0; radix < count; radix++) {
+            for (int i = 0; i < 10; i++) {
+                map.put(i, new ArrayList<Integer>());
+            }
+            for (int i = 0; i < array.length; i++) {
+                int divTime = radix;
+                divNumber = array[i];
+                while (divTime != 0) {
+                    divNumber /= 10;
+                    divTime--;
+                }
+                divNumber %= 10;
+                map.get(divNumber).add(array[i]);
+            }
+            int index = 0;
+            for (int i = 0; i < 10; i++) {
+                for (int j : map.get(i)) {
+                    array[index++] = j;
+                }
+            }
+            System.out.println(Arrays.toString(array));
+        }
+
+    }
+
 }
+
