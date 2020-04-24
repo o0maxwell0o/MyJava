@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Online {
     public static void main(String[] args) {
-
-
+        String a = "bbbcccaaa";
+        zipStringCount(a);
     }
 
     public static void luckyNumberTree(int n, int m, int[] array) {
@@ -222,6 +222,140 @@ public class Online {
             }
         }
         System.out.println(sum);
+    }
+
+
+    public static void zipStringCount(String str) {
+        //字符串包括a-z,A-Z,0-9,'-'
+        //数字表示数字前的字符串重复的次数例如abc3>>abcabcabc
+        //'-'表示从哪个字母按字母表到哪个字母例如a-d>>abcd,x-b>>xyzab
+        //找出频率最高的字符以及出现次数
+        //字符有大小之分但是计数和最后输出都按小写，大写的字母也归并到小写中
+        //若最大值相等，输出字母表靠前的一个
+        //Map的迭代遍历按key值从小到大遍历的
+        /*
+        String a="A-Dabc3"
+        zipStringCount(a)
+         */
+        char[] temp = str.toLowerCase().toCharArray();
+        List<Character> carr = new ArrayList<>();
+        for (int i = 0; i < temp.length; i++) {
+            carr.add(temp[i]);
+        }
+        Map<Character, Integer> map = new HashMap();
+        int indexforA = 0;
+        List<Character> list = new ArrayList<>();
+        for (int i = 0; i < carr.size(); i++) {
+            char a = carr.get(i);
+            if (a < 'a') {
+                if (a >= '0' && a <= '9') {
+                    int doit = a - '0';
+                    doit--;
+                    while (doit != 0) {
+                        for (int start = indexforA; start < i; start++) {
+                            addNum(map, carr.get(start));
+                        }
+                        doit--;
+                    }
+                    indexforA = i + 1;
+                } else {//'-'
+                    char pre = carr.get(i - 1);
+                    char aft = carr.get(i + 1);
+                    if (carr.get(i - 1) > carr.get(i + 1)) {
+                        //从a再开始
+                        carr.remove(i);
+                        int count = 0;
+                        for (int start = (int) pre + 1; start <= (int) 'z'; start++) {
+                            carr.add(i + count, (char) start);
+                            addNum(map, (char) start);
+                            count++;
+                        }
+                        for (int start = 'a'; start < (int) aft; start++) {
+                            carr.add(i + count, (char) start);
+                            addNum(map, (char) start);
+                            count++;
+                        }
+                        i += count;
+                    } else {
+                        carr.remove(i);
+                        int count = 0;
+                        for (int start = (int) pre + 1; start < (int) aft; start++) {
+                            carr.add(i + count, (char) start);
+                            addNum(map, (char) start);
+                            count++;
+                        }
+                        i += count;
+                    }
+                }
+
+            } else {
+                addNum(map, a);
+            }
+        }
+        int max = 0;
+        char tar = ' ';
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > max) {
+                max = entry.getValue();
+                tar = entry.getKey();
+            }
+        }
+        System.out.println("" + tar + max);
+    }
+
+    public static void addNum(Map<Character, Integer> map, char a) {
+        //zipStringCount的计数方法
+        if (map.containsKey(a)) {
+            int count = map.get(a) + 1;
+            map.put(a, count);
+        } else {
+            map.put(a, 1);
+        }
+    }
+
+
+    public static void maxOverlap(int[] start, int[] end) {
+        //检测重合区间数量最多的时候，题目转变>>不同的人在不同时间到达和离开房间，求人数最多的时候以及此时的人数
+        /*
+        int[] a = {1, 2, 10, 5, 5};
+        int[] b = {4, 5, 12, 9, 12};
+        maxOverlap(a, b);
+         */
+        Arrays.sort(start);
+        Arrays.sort(end);
+        int[] total = new int[start.length + end.length];
+        boolean[] stats = new boolean[start.length + end.length];
+        int i = 0, j = 0, index = 0;
+        while (i < start.length && j < end.length) {
+            if (start[i] <= end[j]) {
+                total[index] = start[i++];
+                stats[index++] = true;
+            } else {
+                total[index] = end[j++];
+                stats[index++] = false;
+            }
+        }
+        while (i < start.length) {
+            total[index] = start[i++];
+            stats[index++] = true;
+        }
+        while (j < end.length) {
+            total[index] = end[j++];
+            stats[index++] = false;
+        }
+        int max = 0, num = 0, maxTime = 0;
+        for (int check = 0; check < total.length; check++) {
+            if (stats[check]) {
+                num++;
+            } else {
+                num--;
+            }
+            if (num > max) {
+                max = num;
+                maxTime = total[check];
+            }
+        }
+        System.out.println(max + " " + maxTime);
     }
 
 }
