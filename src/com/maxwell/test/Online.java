@@ -358,4 +358,174 @@ public class Online {
         System.out.println(max + " " + maxTime);
     }
 
+/*
+    int count = 0;
+    int[][] g = {
+            {1, 1, 1, 1, 1, 1, 1, 0},
+            {1, 0, 0, 0, 0, 1, 1, 0},
+            {1, 0, 1, 0, 1, 1, 1, 0},
+            {1, 0, 0, 0, 0, 1, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 0}};
+        for (int i = 0; i < g.length; i++) {
+        for (int j = 0; j < g[0].length; j++) {
+            if ((i == 0 || i == g.length - 1 || j == 0 || j == g[0].length - 1) && g[i][j] == 0) {
+                dfs(g, i, j, -1);
+            }
+        }
+    }
+
+        for (int i = 0; i < g.length; i++) {
+        for (int j = 0; j < g[0].length; j++) {
+            if (g[i][j] == 0) {
+                dfs(g, i, j, -1);
+                count++;
+            }
+        }
+    }
+        System.out.println(count);
+}
+
+    public static void dfs(int[][] g, int i, int j, int c) {
+        if (i < 0 || i == g.length || j < 0 || j == g[0].length || g[i][j] != 0) return;
+        g[i][j] = c;
+        dfs(g, i - 1, j, c);
+        dfs(g, i, j - 1, c);
+        dfs(g, i + 1, j, c);
+        dfs(g, i, j + 1, c);
+    }
+}
+
+ */
+
+
+ /*
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            int check = sc.nextInt();
+            if (check == 1) {
+                int start = sc.nextInt();
+                int end = sc.nextInt();
+                int addprice = sc.nextInt();
+                int run = start, pre = start;
+                if (start > end) {
+                    while (run > 0 && run != end) {
+                        run /= 2;
+                        List<Integer> list = new ArrayList<>();
+                        list.add(run);
+                        list.add(pre);
+                        if (map.containsKey(list)) {
+                            int price = map.get(list) + addprice;
+                            map.put(list, addprice);
+                        } else {
+                            map.put(list, addprice);
+                        }
+                    }
+                }
+
+            } else {
+                int start = sc.nextInt();
+                int end = sc.nextInt();
+
+            }
+        }
+        int y = sc.nextInt();
+
+         */
+        /*
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        int y = sc.nextInt();
+        int[][] map = new int[x][y];
+        boolean[][] visited = new boolean[x][y];
+        int count = 0;
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                int now = sc.nextInt();
+                map[i][j] = now;
+            }
+        }
+        if (map.length == 0 || map[0].length == 0) {
+            System.out.println(0);
+            return;
+        }
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                if (map[i][j] == '0' || visited[i][j]) {
+                    continue;
+                }
+                num(map, visited, i, j);
+                count++;
+            }
+        }
+        System.out.println(count);
+
+    }
+
+    public static void num(int[][] grid, boolean[][] visited, int x, int y) {
+        if (x < 0 || x >= grid.length) {
+            return;
+        }
+        if (y < 0 || y >= grid[0].length) {
+            return;
+        }
+        if (grid[x][y] == '0' || visited[x][y]) {
+            return;
+        }
+        visited[x][y] = true;
+        num(grid, visited, x - 1, y);
+        num(grid, visited, x + 1, y);
+        num(grid, visited, x, y - 1);
+        num(grid, visited, x, y + 1);
+
+    }
+
+         */
+
+        /*
+        int[][] intervals = {{1, 3}, {11, 22}, {8, 10}, {15, 18}};
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+        List<List<Integer>> list = new ArrayList<>();
+        for (int i = 1; i < intervals.length; i++) {
+            if (end >= intervals[i][0]) {
+                //前右区间与后左区间重合
+                if (end >= intervals[i][1]) {
+                    //前区间包括了后区间
+                } else {
+                    //前区间有一部分后区间重合
+                    end = intervals[i][1];
+                }
+            } else {
+                //前区间和后区间不重合
+                List<Integer> newOne = new ArrayList<>();
+                newOne.add(start);
+                newOne.add(end);
+                list.add(newOne);
+                start = intervals[i][0];
+                end = intervals[i][1];
+            }
+        }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print("[" + list.get(i).get(0) + "," + list.get(i).get(1) + "]");
+        }
+
+         */
+
+
+            /*
+            List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
+            Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+                @Override
+                public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                    return o2.getValue().compareTo(o1.getValue());
+                }
+            });
+            for (Map.Entry<Integer, Integer> mapping : list) {
+                System.out.println(mapping.getKey() + ":" + mapping.getValue());
+            }
+            */
+
 }
