@@ -4,8 +4,13 @@ import java.util.*;
 
 public class Online {
     public static void main(String[] args) {
-        String a = "bbbcccaaa";
-        zipStringCount(a);
+        int[][] g = {
+                {1, 1, 1, 1, 1, 1, 1, 0},
+                {1, 0, 0, 0, 0, 1, 1, 0},
+                {1, 0, 1, 0, 1, 1, 1, 0},
+                {1, 0, 0, 0, 0, 1, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 0}};
+        closedIsland(g);
     }
 
     public static void luckyNumberTree(int n, int m, int[] array) {
@@ -15,7 +20,7 @@ public class Online {
         int[] array = {1, 2, 3, 4, 5};
         luckyNumberTree(n, m, array);
          */
-        //一条直线上种了N棵树，每棵树有一个和谐数，若区间内各和谐数之和能被M整数就是和谐区间，求和谐区间个数
+        //一条直线上种了N棵树，每棵树有一个和谐数，若区间内各和谐数之和能被M整数就是和谐区间，求和谐区间 个数
         int N = n;
         int M = m;
         int count = 0;
@@ -358,130 +363,77 @@ public class Online {
         System.out.println(max + " " + maxTime);
     }
 
-/*
-    int count = 0;
-    int[][] g = {
-            {1, 1, 1, 1, 1, 1, 1, 0},
-            {1, 0, 0, 0, 0, 1, 1, 0},
-            {1, 0, 1, 0, 1, 1, 1, 0},
-            {1, 0, 0, 0, 0, 1, 0, 1},
-            {1, 1, 1, 1, 1, 1, 1, 0}};
-        for (int i = 0; i < g.length; i++) {
-        for (int j = 0; j < g[0].length; j++) {
-            if ((i == 0 || i == g.length - 1 || j == 0 || j == g[0].length - 1) && g[i][j] == 0) {
-                dfs(g, i, j, -1);
-            }
-        }
-    }
-
-        for (int i = 0; i < g.length; i++) {
-        for (int j = 0; j < g[0].length; j++) {
-            if (g[i][j] == 0) {
-                dfs(g, i, j, -1);
-                count++;
-            }
-        }
-    }
-        System.out.println(count);
-}
-
-    public static void dfs(int[][] g, int i, int j, int c) {
-        if (i < 0 || i == g.length || j < 0 || j == g[0].length || g[i][j] != 0) return;
-        g[i][j] = c;
-        dfs(g, i - 1, j, c);
-        dfs(g, i, j - 1, c);
-        dfs(g, i + 1, j, c);
-        dfs(g, i, j + 1, c);
-    }
-}
-
- */
-
-
- /*
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        Map<List<Integer>, Integer> map = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            int check = sc.nextInt();
-            if (check == 1) {
-                int start = sc.nextInt();
-                int end = sc.nextInt();
-                int addprice = sc.nextInt();
-                int run = start, pre = start;
-                if (start > end) {
-                    while (run > 0 && run != end) {
-                        run /= 2;
-                        List<Integer> list = new ArrayList<>();
-                        list.add(run);
-                        list.add(pre);
-                        if (map.containsKey(list)) {
-                            int price = map.get(list) + addprice;
-                            map.put(list, addprice);
-                        } else {
-                            map.put(list, addprice);
-                        }
-                    }
-                }
-
-            } else {
-                int start = sc.nextInt();
-                int end = sc.nextInt();
-
-            }
-        }
-        int y = sc.nextInt();
-
-         */
-        /*
-        Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
-        int y = sc.nextInt();
-        int[][] map = new int[x][y];
-        boolean[][] visited = new boolean[x][y];
+    public static void closedIsland(int[][] grid) {
+        //求封闭到的个数(0代表陆地，1代表水域)
+        //leetcode 1254
         int count = 0;
+        int x = grid.length;
+        int y = grid[0].length;
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                int now = sc.nextInt();
-                map[i][j] = now;
+                if (grid[i][j] == 0 && (i == 0 || i == grid.length - 1 || j == 0 || j == grid[0].length - 1)) {
+                    islandDFS(grid, i, j);
+                }
             }
         }
-        if (map.length == 0 || map[0].length == 0) {
-            System.out.println(0);
-            return;
-        }
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                if (map[i][j] == '0' || visited[i][j]) {
-                    continue;
+                if (grid[i][j] == 0) {
+                    islandDFS(grid, i, j);
+                    count++;
                 }
-                num(map, visited, i, j);
-                count++;
             }
         }
         System.out.println(count);
 
     }
 
-    public static void num(int[][] grid, boolean[][] visited, int x, int y) {
-        if (x < 0 || x >= grid.length) {
+    public static void islandDFS(int[][] grid, int x, int y) {
+        //closedIsland的深度优先搜索递归
+        if (x < 0 || x == grid.length || y < 0 || y == grid[0].length || grid[x][y] != 0) {
             return;
         }
-        if (y < 0 || y >= grid[0].length) {
-            return;
-        }
-        if (grid[x][y] == '0' || visited[x][y]) {
-            return;
-        }
-        visited[x][y] = true;
-        num(grid, visited, x - 1, y);
-        num(grid, visited, x + 1, y);
-        num(grid, visited, x, y - 1);
-        num(grid, visited, x, y + 1);
-
+        grid[x][y] = -1;
+        islandDFS(grid, x - 1, y);
+        islandDFS(grid, x + 1, y);
+        islandDFS(grid, x, y - 1);
+        islandDFS(grid, x, y + 1);
     }
 
-         */
+    public static void path(int a, int b) {
+        int start = a;
+        int end = b;
+        int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        List<Integer> listStart = new ArrayList<>();
+        List<Integer> listEnd = new ArrayList<>();
+        while (start > 0 && end > 0) {
+            if (start < end) {
+                listEnd.add(end);
+                end /= 2;
+            } else if (start > end) {
+                listStart.add(start);
+                start /= 2;
+            } else if (start == end) {
+                listStart.add(start);
+                break;
+            }
+        }
+        System.out.println(listStart.toString());
+        System.out.println(listEnd.toString());
+        Collections.reverse(listEnd);
+        listStart.addAll(listEnd);
+        System.out.println(listStart.toString());
+        int sum = 0;
+        for (int i = 0; i < listStart.size() - 1; i++) {
+            if (listStart.get(i) < listStart.get(i + 1)) {
+                sum += array[listStart.get(i + 1)];
+            } else {
+                sum += array[listStart.get(i)];
+            }
+        }
+        System.out.println(sum);
+
+    }
 
         /*
         int[][] intervals = {{1, 3}, {11, 22}, {8, 10}, {15, 18}};
