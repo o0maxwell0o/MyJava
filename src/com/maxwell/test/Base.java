@@ -4,9 +4,33 @@ import java.util.Stack;
 
 public class Base {
     public static void main(String[] args) {
-        String s = "((1+(2+3))*(4*5))";
-        char[] result = s.toCharArray();
-        result(result);
+        leastCommonFactor(6, 4);
+
+    }
+
+    //(a>=b)最小公因数：等于两个数的积除于两个数的最大公约数
+    public static void leastCommonFactor(int a, int b) {
+        System.out.println(a*b/greatestCommonDivisor(a,b));
+    }
+
+    //欧几里得算法，辗转相除法求最大公约数
+    //a>b，a和b的最大公约数，也是b和a-b的最大公约数
+    public static int greatestCommonDivisor(int a, int b) {
+        //迭代
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+        //递归
+         /*
+        if (b == 0) {
+            System.out.println(a);
+        } else {
+            greatestCommonDivisor(b, a % b);
+        }
+         */
     }
 
     //判断是否是质数（素数）
@@ -66,6 +90,11 @@ public class Base {
 
     //Dijkstra的双栈算术表达式求值
     public static void result(char[] num) {
+        /*
+        String s = "((1+(2+3))*(4*5))";
+        char[] result = s.toCharArray();
+        result(result);
+         */
         Stack<Character> ops = new Stack<Character>();
         Stack<Double> vals = new Stack<Double>();
         for (char e : num) {
