@@ -19,13 +19,13 @@ public class Permutations_46 {
     private static void help(List<List<Integer>> result, List<Integer> path, int[] nums) {
         if (path.size() == nums.length) {
             result.add(new ArrayList<Integer>(path));
-            return;
+
         } else {
-            for (int i = 0; i < nums.length; i++) {
-                if (path.contains(nums[i])) {
+            for (int num : nums) {
+                if (path.contains(num)) {
                     continue;
                 }
-                path.add(nums[i]);
+                path.add(num);
                 help(result, path, nums);
                 path.remove(path.size() - 1);//backtracking
             }
