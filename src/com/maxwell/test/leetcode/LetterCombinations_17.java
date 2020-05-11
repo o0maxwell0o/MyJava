@@ -10,16 +10,6 @@ public class LetterCombinations_17 {
 
     public static List<String> letterCombinations(String digits) {
         List<String> astr = new LinkedList<>();
-        return recursive(astr, digits, 0);
-
-    }
-
-    public static List<String> recursive(List<String> astr, String digits, int index) {
-        if (index == digits.length()) {
-            return astr;
-        }
-        List<String> temp = new LinkedList<>();
-        char a = digits.charAt(index);
         char[] putin = {
                 'a', 'b', 'c',
                 'd', 'e', 'f',
@@ -29,6 +19,16 @@ public class LetterCombinations_17 {
                 'p', 'q', 'r', 's',
                 't', 'u', 'v',
                 'w', 'x', 'y', 'z'};
+        return recursive(putin, astr, digits, 0);
+
+    }
+
+    public static List<String> recursive(char[] putin, List<String> astr, String digits, int index) {
+        if (index == digits.length()) {
+            return astr;
+        }
+        List<String> temp = new LinkedList<>();
+        char a = digits.charAt(index);
         int start = 0, end = 0;
         switch (a) {
             case '2':
@@ -76,6 +76,6 @@ public class LetterCombinations_17 {
             }
         }
         astr = temp;
-        return recursive(astr, digits, ++index);
+        return recursive(putin, astr, digits, ++index);
     }
 }
