@@ -1,73 +1,85 @@
 package com.maxwell.test;
 
+import com.maxwell.test.dataCode.ch03.MyArrayList;
 
-import java.lang.reflect.Array;
+
 import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-        int c = sc.nextInt();
-        int d = sc.nextInt();
-        int count = 0;
-        for (int i = 1; i <= a; i++) {
-            for (int j = 1; j <= b; j++) {
-                for (int m = 1; m <= c; m++) {
-                    for (int n = 1; n <= d; n++) {
-                        if (i < j) {
-                            if ((j - i) % 3 == 0) {
-                                if ((j + m) % 5 == 0) {
-                                    if ((i * m) % 4 == 0) {
-                                        if (check(i, n)) {
-                                            count++;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if ((i - j) % 3 == 0) {
-                                if ((j + m) % 5 == 0) {
-                                    if ((i * m) % 4 == 0) {
-                                        if (check(i, n)) {
-                                            count++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+
+        List<String> astr = new LinkedList<>();
+        System.out.println(letterCombinations(astr, "232", 0));
+
+    }
+
+    public static List<String> letterCombinations(List<String> astr, String digits, int index) {
+        if (index == digits.length()) {
+            return astr;
+        }
+        List<String> temp = new LinkedList<>();
+        char a = digits.charAt(index);
+        char[] putin = {
+                'a', 'b', 'c',
+                'd', 'e', 'f',
+                'g', 'h', 'i',
+                'j', 'k', 'l',
+                'm', 'n', 'o',
+                'p', 'q', 'r', 's',
+                't', 'u', 'v',
+                'w', 'x', 'y', 'z'};
+        int start = 0, end = 0;
+        switch (a) {
+            case '2':
+                start = 0;
+                end = 2;
+                break;
+            case '3':
+                start = 3;
+                end = 5;
+                break;
+            case '4':
+                start = 6;
+                end = 8;
+                break;
+            case '5':
+                start = 9;
+                end = 11;
+                break;
+            case '6':
+                start = 12;
+                end = 14;
+                break;
+            case '7':
+                start = 15;
+                end = 18;
+                break;
+            case '8':
+                start = 19;
+                end = 21;
+                break;
+            case '9':
+                start = 22;
+                end = 25;
+                break;
+        }
+        if(astr.isEmpty()){
+            for (int i = start; i <= end; i++) {
+                temp.add(String.valueOf(putin[i]));
+            }
+        }else{
+            for (String old : astr) {
+                for (int i = start; i <= end; i++) {
+                    temp.add(old + putin[i]);
                 }
             }
         }
-        System.out.println(count);
-
+        astr = temp;
+        return letterCombinations(astr, digits, ++index);
     }
 
-    public static boolean check(int aa, int bb) {
-        int k = 0;
-        if (aa < bb) {
-            int t = 0;
-            t = aa;
-            aa = bb;
-            bb = t;
-        }
-        while (bb != 0) {
-            k = aa % bb;
-            aa = bb;
-            bb = k;
-        }
-        if (aa == 1) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
 
 }
-
             /*
             List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
             Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
