@@ -16,7 +16,7 @@ public class MinimumWindowSubstring {
     }
 
     public static String minWindow(String s, String t) {
-/*
+
         int p = 0, min = 0, q = 0, store_p = 0;
         int temp = 0;
         char temp_c;
@@ -29,13 +29,15 @@ public class MinimumWindowSubstring {
         }
         boolean fit = false;
         int nums = dic.size();
-        int mm = s.length();
         for (; q < s.length(); q++) {
             temp_c = s.charAt(q);
             if (dic.containsKey(temp_c)) {
                 temp = camp.getOrDefault(temp_c, 0);
                 camp.put(temp_c, temp + 1);
-                if (camp.get(temp_c) == dic.get(temp_c)) {
+                if (camp.get(temp_c).intValue() == dic.get(temp_c).intValue()) {
+                    //if not include".intValue()"
+                    //in some cases, fit will not be true not matter the data
+                    //still don't know why
                     nums--;
                     if (nums == 0) {
                         fit = true;
@@ -60,9 +62,9 @@ public class MinimumWindowSubstring {
             }
         }
         return fit ? s.substring(store_p, min + 1) : "";
-        */
 
 
+/*
         if (s.length() == 0 || t.length() == 0) {
             return "";
         }
@@ -102,6 +104,7 @@ public class MinimumWindowSubstring {
         }
 
         return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
+        */
     }
 
 }
