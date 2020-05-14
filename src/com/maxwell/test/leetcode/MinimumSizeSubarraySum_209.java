@@ -1,6 +1,6 @@
 package com.maxwell.test.leetcode;
 
-public class MinimumSizeSubarraySum {
+public class MinimumSizeSubarraySum_209 {
     public static void main(String[] args) {
         int s = 7;
         int[] nums = {2, 3, 1, 2, 4, 3};
