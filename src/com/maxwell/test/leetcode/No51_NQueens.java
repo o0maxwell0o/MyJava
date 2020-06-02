@@ -3,7 +3,7 @@ package com.maxwell.test.leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NQueens_51 {
+public class No51_NQueens {
     public static void main(String[] args) {
         System.out.println(solveNQueens(4));
     }

@@ -3,7 +3,7 @@ package com.maxwell.test.leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shift2DGrid_1260 {
+public class No1260_Shift2DGrid {
     public static void main(String[] args) {
         int[][] grid = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         int k = 22;

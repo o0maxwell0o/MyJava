@@ -3,7 +3,7 @@ package com.maxwell.test.leetcode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KidsWithCandies_1431 {
+public class No1431_KidsWithCandies {
     public static void main(String[] args) {
         int[] candies = {2, 3, 5, 1, 3};
         int extraCandies = 3;

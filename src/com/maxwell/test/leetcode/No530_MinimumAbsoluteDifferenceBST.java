@@ -1,6 +1,6 @@
 package com.maxwell.test.leetcode;
 
-public class MinimumAbsoluteDifferenceBST_530 {
+public class No530_MinimumAbsoluteDifferenceBST {
     public static void main(String[] args) {
 
     }

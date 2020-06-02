@@ -1,6 +1,6 @@
 package com.maxwell.test.leetcode;
 
-public class RemovePalindromicSubsequences_1332 {
+public class No1332_RemovePalindromicSubsequences {
     public static void main(String[] args) {
         System.out.println(removPalindromeSub("ababa"));
     }

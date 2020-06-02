@@ -1,6 +1,6 @@
 package com.maxwell.test.leetcode;
 
-public class NumberofClosedIslands_1254 {
+public class No1254_NumberofClosedIslands {
     public static void main(String[] args) {
         int count = 0;
         int[][] g = {

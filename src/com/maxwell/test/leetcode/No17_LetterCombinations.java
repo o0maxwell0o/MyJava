@@ -3,7 +3,7 @@ package com.maxwell.test.leetcode;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LetterCombinations_17 {
+public class No17_LetterCombinations {
     public static void main(String[] args) {
         System.out.println(letterCombinations("23"));
     }
