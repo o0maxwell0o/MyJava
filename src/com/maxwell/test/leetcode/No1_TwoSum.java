@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class No1_TwoSum {
     public static void main(String[] args) {
-        int[] nums = {2, 6, 11, 15};
+        int[] nums = {2, 7, 11, 15};
         int target = 9;
         System.out.println(Arrays.toString(twoSum_improved(nums, target)));
     }
